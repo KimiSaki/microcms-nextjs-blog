@@ -2,6 +2,7 @@ import type { InferGetStaticPropsType, NextPage } from "next";
 import styles from "styles/Home.module.css";
 import { client } from "libs/client";
 import { Blog, Category } from "types/blogs";
+import Link from "next/link";
 
 type Props = {
   blogs: Blog[];
@@ -15,9 +16,11 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   return (
     <div className={styles.container}>
       {blogs.map((blog) => (
-        <div key={blog.id}>
-          <p>{blog.title}</p>
-        </div>
+        <Link href={`blog/${blog.id}`} key={blog.id}>
+          <a>
+            <p>{blog.title}</p>
+          </a>
+        </Link>
       ))}
       <ul>
         {categories.map((category) => (

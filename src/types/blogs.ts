@@ -3,9 +3,10 @@ export type Blog = {
   title: string;
   content: string;
   category: string;
-}
+  publishedAt: string;
+};
 
 export type Category = {
   id: string;
   name: string;
-}
+};

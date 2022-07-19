@@ -3,8 +3,10 @@ import {
   GetStaticProps,
   NextPage,
 } from "next";
-import { Blog } from "types/blogs";
+import { Blog, Category } from "types/blogs";
 import { client } from "libs/client";
+import MainLayouts from "components/layouts/MainLayouts";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await client.get({ endpoint: "blogs" });
@@ -15,23 +17,37 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const id = context.params?.id;
   const data = await client.get({ endpoint: "blogs", contentId: id });
+  const categories = await client.get({ endpoint: "categories" });
   return {
     props: {
       blog: data,
+      categories: categories.contents,
     },
   };
 };
 
 type Props = {
   blog: Blog;
+  categories: Category[];
 };
 
-const BlogId: NextPage<Props> = ({ blog }: Props) => {
+const BlogId: NextPage<Props> = ({ blog, categories }: Props) => {
   return (
-    <main>
-      <h1>{blog.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: `${blog.content}` }} />
-    </main>
+    <MainLayouts categories={categories}>
+      <Box mb={5}>
+        <Heading>{blog.title}</Heading>
+      </Box>
+      <Box mb={5}>
+        <Flex>
+          <Box>
+            <Text fontWeight="md" color="gray">{blog.publishedAt}</Text>
+          </Box>
+        </Flex>
+      </Box>
+      <Box padding={5}>
+        <div dangerouslySetInnerHTML={{ __html: `${blog.content}` }} />
+      </Box>
+    </MainLayouts>
   );
 };
 

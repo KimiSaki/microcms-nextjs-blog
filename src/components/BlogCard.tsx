@@ -22,8 +22,8 @@ const BlogCard: FC<Props> = ({ blog }: Props) => {
 
   return (
     <Box
-      bgColor={hover ? "gray.100" : "white"}
       cursor={hover ? "pointer" : "default"}
+      boxShadow={hover ? "md" : "none"}
       width="400px"
       height="350px"
       p={3}

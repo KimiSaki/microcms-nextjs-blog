@@ -15,9 +15,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return { paths, fallback: false };
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async context => {
   const id = context.params?.id;
-  const data = await client.get({ endpoint: "blogs", contentId: id });
+  const contentId = id instanceof Array ? id[0] : id;
+  const data = await client.get({ endpoint: "blogs", contentId: contentId });
   const categories = await client.get({ endpoint: "categories" });
   return {
     props: {

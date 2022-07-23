@@ -1,10 +1,9 @@
 import type { GetStaticProps, NextPage } from "next";
 import { client } from "libs/client";
 import { Blog, Category } from "types/blogs";
-import {
-  Link,
-} from "@chakra-ui/react";
 import MainLayouts from "components/layouts/MainLayouts";
+import BlogCard from "components/BlogCard";
+import { Flex } from "@chakra-ui/react";
 
 type Props = {
   blogs: Blog[];
@@ -14,11 +13,11 @@ type Props = {
 const Home: NextPage<Props> = ({ blogs, categories }: Props) => {
   return (
     <MainLayouts categories={categories}>
-      {blogs.map((blog) => (
-        <Link href={`blog/${blog.id}`} key={blog.id}>
-          {blog.title}
-        </Link>
-      ))}
+      <Flex justifyContent="center">
+        {blogs.map((blog) => (
+          <BlogCard key={blog.id} blog={blog} />
+        ))}
+      </Flex>
     </MainLayouts>
   );
 };

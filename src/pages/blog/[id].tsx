@@ -6,7 +6,8 @@ import {
 import { Blog, Category } from "types/blogs";
 import { client } from "libs/client";
 import MainLayouts from "components/layouts/MainLayouts";
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Divider, Flex, Heading, Text } from "@chakra-ui/react";
+import { BiTime } from "react-icons/bi";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await client.get({ endpoint: "blogs" });
@@ -34,18 +35,22 @@ type Props = {
 const BlogId: NextPage<Props> = ({ blog, categories }: Props) => {
   return (
     <MainLayouts categories={categories}>
-      <Box mb={5}>
-        <Heading>{blog.title}</Heading>
-      </Box>
-      <Box mb={5}>
-        <Flex>
-          <Box>
-            <Text fontWeight="md" color="gray">{blog.publishedAt}</Text>
+      <Box>
+        <Box p={5}>
+          <Box mb={5}>
+            <Heading>{blog.title}</Heading>
           </Box>
-        </Flex>
-      </Box>
-      <Box padding={5}>
-        <div dangerouslySetInnerHTML={{ __html: `${blog.content}` }} />
+          <Box mb={5}>
+            <Flex alignContent="center">
+              <BiTime color="gray" />
+              <Text fontWeight="md" color="gray">{blog.publishedAt}</Text>
+            </Flex>
+          </Box>
+        </Box>
+        <Divider />
+        <Box padding={5}>
+          <div dangerouslySetInnerHTML={{ __html: `${blog.content}` }} />
+        </Box>
       </Box>
     </MainLayouts>
   );

@@ -22,19 +22,20 @@ const MainLayouts: NextPage<Props> = ({ categories, children }: Props) => {
       <Header />
       <Box pt={20} minH="100vh" bgColor="sub">
         <Flex>
-          <Box
-            ml={10}
-            mr={5}
-            mb={10}
-            width="80%"
-            minH="80vh"
-            bgColor="white"
-            borderRadius={5}
-            boxShadow="md"
-            padding={5}
-          >
-            {children}
-          </Box>
+          <Flex width="80%" minH="80vh" justifyContent={"center"}>
+            <Box
+              ml={10}
+              mr={5}
+              mb={10}
+              width="container.xl"
+              bgColor="white"
+              borderRadius={5}
+              boxShadow="md"
+              padding={5}
+            >
+              {children}
+            </Box>
+          </Flex>
 
           <Box ml={5} mr={10} width="20%">
             <CategoryList categories={categories} />

@@ -1,37 +1,37 @@
-import { FC } from "react";
+import { FC, MouseEvent } from "react";
 import {
   Box,
   Text,
   Divider,
-  UnorderedList,
-  ListItem,
+  Button,
 } from "@chakra-ui/react";
 import { Category } from "types/blogs";
 
 type Props = {
   categories: Category[];
-}
+  handleClickCategory: (categoryid: string) => void;
+};
 
-const CategoryList: FC<Props> = ({categories}) => {
+const CategoryList: FC<Props> = ({ categories, handleClickCategory }) => {
   return (
-    <Box
-    bgColor="white"
-    boxShadow="md"
-    borderRadius={5}
-    padding={5}
-  >
-    <Box mb={3}>
-      <Text fontWeight="semibold">カテゴリ</Text>
-    </Box>
-    <Divider />
-    <Box mt={3}>
-      <UnorderedList>
+    <Box bgColor="white" boxShadow="md" borderRadius={5} padding={5}>
+      <Box mb={3}>
+        <Text fontWeight="semibold">カテゴリ</Text>
+      </Box>
+      <Divider />
+      <Box mt={3}>
         {categories.map((category) => (
-          <ListItem key={category.name}>{category.name}</ListItem>
+          <Button
+            size="xs"
+            mb={2}
+            key={category.name}
+            onClick={() => handleClickCategory(category.id)}
+          >
+            {category.name}
+          </Button>
         ))}
-      </UnorderedList>
+      </Box>
     </Box>
-  </Box>
   );
-}
+};
 export default CategoryList;

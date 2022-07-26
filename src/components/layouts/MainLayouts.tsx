@@ -7,9 +7,10 @@ import {
   Link,
   Spacer,
 } from "@chakra-ui/react";
-import { ReactNode } from "react";
+import { MouseEvent, ReactNode } from "react";
 import { Category } from "types/blogs";
 import CategoryList from "components/CategoryList";
+import { useRouter } from "next/router";
 
 type Props = {
   categories: Array<Category>;
@@ -17,6 +18,13 @@ type Props = {
 }
 
 const MainLayouts: NextPage<Props> = ({ categories, children }: Props) => {
+  const router = useRouter();
+  const handleClickCategory = (categoryid: string) => {
+    router.push({
+      pathname: "/",
+      query: { categoryid: categoryid},
+    });
+  }
   return (
     <Box>
       <Header />
@@ -38,7 +46,7 @@ const MainLayouts: NextPage<Props> = ({ categories, children }: Props) => {
           </Flex>
 
           <Box ml={5} mr={10} width="20%">
-            <CategoryList categories={categories} />
+            <CategoryList categories={categories} handleClickCategory={handleClickCategory} />
 
             <Box mt={5}>
               <Flex>
